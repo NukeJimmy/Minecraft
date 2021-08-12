@@ -7,7 +7,7 @@ on respawn:
 	teleport player to {X.%player%}
 on death:
 	add 1 to {deathtime::event-player}
-	send "所有人共滑倒%{deathtime::event-player}%次了"
+	send "All Player fell into void%{deathtime::event-player}% times in total"
 command /resetdeath:
 	trigger:
 		if event-player has permission "player.op":
@@ -15,10 +15,10 @@ command /resetdeath:
 				set {deathtime::%loop-index%} to 0
 		else:
 			send "<red>You don't have fucking permission to execute this fucking command"
-			send "<red>%event-player%<white>试图修改死亡次数,已被拒绝."
+			send "<red>%event-player%<white>Try to change Death Times."
 command /showdeath:
 	trigger:
 		loop {deathtime::*}:
-			send "玩家%loop-index%死亡次数:%{deathtime::%loop-index%}%" 
+			send "Player%loop-index%Death Times:%{deathtime::%loop-index%}%" 
 
 		
