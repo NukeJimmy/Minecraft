@@ -9,7 +9,7 @@ on join:
 	if {regst.%player%} is true:
 		set {logst.%player%} to false
 		set {_posl.%player%} to location of player
-		send "[Server]Use command /login <PASSWORD> to login, you have 60 seconds to login" to player
+		send "[Server]Use command /login <PASSWORD> to login, you have 60 seconds to log in" to player
 		loop 30 times:
 			if {logst.%player%} is true:
 				stop
