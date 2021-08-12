@@ -15,7 +15,7 @@ command /resetdeath:
 				set {deathtime::%loop-index%} to 0
 		else:
 			send "<red>You don't have fucking permission to execute this fucking command"
-			send "<red>%event-player%<white>Try to change Death Times."
+			send "<red>%event-player%<white> Try to change Death Times."
 command /showdeath:
 	trigger:
 		loop {deathtime::*}:
