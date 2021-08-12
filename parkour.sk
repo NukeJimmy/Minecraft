@@ -1,0 +1,24 @@
+on walking on bedrock:
+	set {X.%player%} to location of player
+	send "[MINEB]<red>Checkpoint!!!" to event-player
+on walking on barrier:
+	kill the player
+on respawn:
+	teleport player to {X.%player%}
+on death:
+	add 1 to {deathtime::event-player}
+	send "所有人共滑倒%{deathtime::event-player}%次了"
+command /resetdeath:
+	trigger:
+		if event-player has permission "player.op":
+			loop {deathtime::*}:	
+				set {deathtime::%loop-index%} to 0
+		else:
+			send "<red>You don't have fucking permission to execute this fucking command"
+			send "<red>%event-player%<white>试图修改死亡次数,已被拒绝."
+command /showdeath:
+	trigger:
+		loop {deathtime::*}:
+			send "玩家%loop-index%死亡次数:%{deathtime::%loop-index%}%" 
+
+		

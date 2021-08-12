@@ -1,0 +1,94 @@
+on first join:
+	send "[Server]Use command /reg <PASSWORD> to register" to player
+	set {regst.%player%} to false
+	set {password.%player%} to "No"
+	set the player's gamemode to adventure
+	set {_posl.%player%} to location of player
+on join:
+	set the player's gamemode to adventure
+	if {regst.%player%} is true:
+		set {logst.%player%} to false
+		set {_posl.%player%} to location of player
+		send "[Server]Use command /login <PASSWORD> to login, you have 60 seconds to login" to player
+		loop 30 times:
+			if {logst.%player%} is true:
+				stop
+			teleport player to {_posl.%player%}
+			send "[Server]Use command /login <PASSWORD> to login" to player
+			wait 2 second
+		kick the player due to "Time out!"
+	else:
+		send "[Server]Use command /reg <PASSWORD> to register" to player
+		set {regst.%player%} to false
+		set {password.%player%} to "No"
+		set the player's gamemode to adventure
+		set {_posl.%player%} to location of player
+		loop 30 times:
+			if {regst.%player%} is true:
+				stop
+			teleport player to {_posl.%player%}
+			send "[Server]Use command /reg <PASSWORD> to register" to player
+			wait 2 second
+		kick the player due to "Time out!"
+command /reg [<text>]:
+	trigger:
+		if {regst.%player%} is false:
+			if arg-1 is "":
+				send "[Server]PASSWORD CAN'T BE " to player
+			else:
+				set {password.%player%} to arg-1
+				set {regst.%player%} to true
+				set {logst.%player%} to true
+				send "[Server]Register Successfully,PASSWORD:%arg-1%" to player
+				set the player's gamemode to survival
+		else:
+			send "[Server]You have already registered!" to player
+			send "[Server]If you have NOT registered before, please contact the Administrator Oneboxs666" to player
+command /login [<text>]:
+	trigger:
+		if {regst.%player%} is true:
+			if {password.%player%} is arg-1:
+				set {logst.%player%} to true
+				send "[Server]Login Successfully!" to player
+				set the player's gamemode to survival
+			else:
+				send "[Server]PASSWORD INCORRECT, Try Again!" to player
+				
+		else:
+			send "[Server]You have NOT registered before, Use command /reg <PASSWORD> to register" to player
+command /resetpass:
+	trigger:
+		set {regst.%player%} to false
+		set {password.%player%} to "No"
+		set {logst.%player%} to false
+		
+on chat:
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event
+on command "/gamemode":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event
+on command "/op":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event
+on command "/skript":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event
+on command "/gamerule":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event
+on command "/give":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event		
+on command "/kill":
+	if {logst.%player%} is false:
+		send "[Server]<red>Permission denied" to player
+		cancel event		
+	
+			
